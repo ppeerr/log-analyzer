@@ -2,12 +2,16 @@ package com.per.project.calc;
 
 import com.per.project.io.InputOutputService;
 import com.per.project.io.InputOutputServiceBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 //TODO bean
 public class CalculationServiceBean implements CalculationService {
+
+    private static final Logger log = LoggerFactory.getLogger(CalculationServiceBean.class);
 
     private Float minValidAvailabilityPercentage;
     private Integer maxValidResponseTime;
@@ -53,7 +57,7 @@ public class CalculationServiceBean implements CalculationService {
 
             isInsideInBadPeriod = (getAvailabilityPercentage(goodResponses, checkedLogs) < minValidAvailabilityPercentage);
 
-            //System.out.println("aR-" + checkedLogs + " = " + getAvailabilityPercentage(goodResponses, checkedLogs));
+            //log.info("aR-" + checkedLogs + " = " + getAvailabilityPercentage(goodResponses, checkedLogs));
 
             if (isInsideInBadPeriod) {
                 if (curCheckedLogs == -1) {
@@ -74,7 +78,7 @@ public class CalculationServiceBean implements CalculationService {
                 if (curCheckedLogs != -1) {
                     String outPut = curStartTime + " " + curEndTime + " " + getAvailabilityPercentage(curGoodResponses, curCheckedLogs);
                     //inputOutputService.putLine(outPut);
-                    System.out.println(outPut);
+                    log.info(outPut);
 
                     curStartTime = "";
                     curEndTime = "";
@@ -83,7 +87,7 @@ public class CalculationServiceBean implements CalculationService {
                 }
             }
 
-//            System.out.println("goodResponses = " + goodResponses
+//            log.info("goodResponses = " + goodResponses
 //                    + " isInsideInBadPeriod = " + isInsideInBadPeriod
 //                    + " AvailabilityPercentage = " + getAvailabilityPercentage(goodResponses, checkedLogs)
 //                    + " curStartTime = " + curStartTime
@@ -97,7 +101,7 @@ public class CalculationServiceBean implements CalculationService {
         if (isInsideInBadPeriod) {
             String outPut = curStartTime + " " + curEndTime + " " + getAvailabilityPercentage(curGoodResponses, curCheckedLogs);
             //inputOutputService.putLine(outPut);
-            System.out.println(outPut);
+            log.info(outPut);
 
             curStartTime = "";
             curEndTime = "";
@@ -105,7 +109,7 @@ public class CalculationServiceBean implements CalculationService {
             curGoodResponses = -1;
         }
 
-        System.out.println(minValidAvailabilityPercentage + "---" + maxValidResponseTime);
+        log.info(minValidAvailabilityPercentage + "---" + maxValidResponseTime);
     }
 
     //TODO maybe double
