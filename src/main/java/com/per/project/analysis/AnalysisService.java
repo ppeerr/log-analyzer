@@ -11,10 +11,12 @@ public class AnalysisService {
     private static final Logger log = LoggerFactory.getLogger(AnalysisService.class);
 
     public void analyze() throws Exception {
+        log.debug("start analysis");
+
         try (InputOutputService ioService = new InputOutputService()) {
             LogEntry firstLogEntry = ioService.read();
             if (firstLogEntry == null) {
-                log.debug("Couldn't read any log entry");
+                log.debug("couldn't read any log entry");
                 return;
             }
             AnalysisPeriod globalPeriod = new AnalysisPeriod(firstLogEntry);
@@ -26,7 +28,7 @@ public class AnalysisService {
                 if (globalPeriod.isBadRatioNow()) {
                     if (currentBadPeriod.isEmpty()) {
                         currentBadPeriod = new AnalysisPeriod(currentLogEntry);
-                        log.debug("Bad period started at {}", currentBadPeriod.getStartDate());
+                        log.debug("bad period started at {}", currentBadPeriod.getStartDate());
                     } else {
                         currentBadPeriod.analyze(currentLogEntry);
                     }
@@ -41,8 +43,10 @@ public class AnalysisService {
                 endAndWriteBadPeriod(currentBadPeriod, ioService);
             }
 
-            log.debug("Global availability ratio = {}", globalPeriod.getAvailabilityRatio());
+            log.debug("global availability ratio = {}", globalPeriod.getAvailabilityRatio());
         }
+
+        log.debug("end analysis");
     }
 
     private void endAndWriteBadPeriod(AnalysisPeriod period, InputOutputService ioService) throws Exception {

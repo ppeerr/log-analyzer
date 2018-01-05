@@ -29,14 +29,11 @@ public class Application {
                 System.exit(1);
                 return;
             }
-
             initConfiguration(cmd);
 
-            log.debug("start calculation");
             analysisService.analyze();
-            log.debug("end calculation");
         } catch (Exception e) {
-            log.error("Exception while log-reader working", e);
+            log.error("Exception while log-analyzer working", e);
         }
     }
 
