@@ -22,11 +22,11 @@
 
 Пример использования программы:
 Unix:
-$ cat access.log | java -jar analyze -a 99.9 -t 45
+$ cat access.log | java -jar log-analyzer.jar -a 95.0 -t 120
 2017-06-14 16:47:04     2017-06-14 16:47:14     94.9
 2017-06-14 16:47:14     2017-06-14 16:47:17     94.5
 
 Windows:
-java -jar analyze -a 99.9 -t 45 < access.log
+java -jar log-analyzer.jar -a 95.0 -t 120 < access.log
 2017-06-14 16:47:04     2017-06-14 16:47:14     94.9
 2017-06-14 16:47:14     2017-06-14 16:47:17     94.5
