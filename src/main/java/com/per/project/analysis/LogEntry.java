@@ -42,6 +42,12 @@ public class LogEntry {
         }
     }
 
+    public LogEntry(LocalDateTime timestamp, Integer responseCode, Float responseTime) {
+        this.timestamp = timestamp;
+        this.responseCode = responseCode;
+        this.responseTime = responseTime;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }

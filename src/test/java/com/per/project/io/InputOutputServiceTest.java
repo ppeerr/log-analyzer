@@ -19,10 +19,8 @@ public class InputOutputServiceTest extends ApplicationTest {
 
     @Test
     public void read() throws Exception {
-        System.setIn(IOUtils.toInputStream(FIRST_LOG_LINE));
-
         LogEntry logEntry;
-        try (InputOutputService ioService = new InputOutputService()) {
+        try (InputOutputService ioService = new InputOutputService(IOUtils.toInputStream(FIRST_LOG_LINE), System.out)) {
             logEntry = ioService.read();
         }
 
@@ -31,10 +29,8 @@ public class InputOutputServiceTest extends ApplicationTest {
 
     @Test
     public void readNull() throws Exception {
-        System.setIn(IOUtils.toInputStream(""));
-
         LogEntry logEntry;
-        try (InputOutputService ioService = new InputOutputService()) {
+        try (InputOutputService ioService = new InputOutputService(IOUtils.toInputStream(""), System.out)) {
             logEntry = ioService.read();
         }
 
@@ -43,11 +39,10 @@ public class InputOutputServiceTest extends ApplicationTest {
 
     @Test
     public void write() throws Exception {
-        System.setOut(new PrintStream(testCaseOutputStream));
         AnalysisPeriod period = new AnalysisPeriod(FIRST_GOOD_LOG_ENTRY);
         period.end();
 
-        try (InputOutputService ioService = new InputOutputService()) {
+        try (InputOutputService ioService = new InputOutputService(System.in, new PrintStream(testCaseOutputStream))) {
             ioService.write(period);
         }
 

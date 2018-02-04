@@ -9,8 +9,18 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class InputOutputService implements AutoCloseable {
 
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    private final BufferedReader reader;
+    private final BufferedWriter writer;
+
+    public InputOutputService() {
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    }
+
+    public InputOutputService(InputStream inputStream, OutputStream outputStream) {
+        this.reader = new BufferedReader(new InputStreamReader(inputStream));
+        this.writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+    }
 
     public LogEntry read() throws Exception {
         String line = reader.readLine();

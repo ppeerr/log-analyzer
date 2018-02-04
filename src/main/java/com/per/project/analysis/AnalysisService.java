@@ -13,7 +13,7 @@ public class AnalysisService {
     public void analyze() throws Exception {
         log.debug("start analysis");
 
-        try (InputOutputService ioService = new InputOutputService()) {
+        try (InputOutputService ioService = getInputOutputService()) {
             LogEntry firstLogEntry = ioService.read();
             if (firstLogEntry == null) {
                 log.debug("couldn't read any log entry");
@@ -47,6 +47,10 @@ public class AnalysisService {
         }
 
         log.debug("end analysis");
+    }
+
+    protected InputOutputService getInputOutputService() {
+        return new InputOutputService();
     }
 
     private void endAndWriteBadPeriod(AnalysisPeriod period, InputOutputService ioService) throws Exception {

@@ -11,8 +11,8 @@ public class AnalysisPeriodTest extends ApplicationTest {
     public void commonOneGoodLog() {
         AnalysisPeriod period = new AnalysisPeriod(FIRST_GOOD_LOG_ENTRY);
 
-        assertEquals(FIRST_GOOD_LOG_ENTRY.getTimestamp(), period.getStartDate());
-        assertEquals(FIRST_GOOD_LOG_ENTRY.getTimestamp(), period.getCurrentDate());
+        assertEquals(GOOD_LOG_DATE, period.getStartDate());
+        assertEquals(GOOD_LOG_DATE, period.getCurrentDate());
         assertEquals(1, period.getLogsCount().intValue());
         assertEquals(1, period.getGoodResponsesCount().intValue());
         assertTrue(period.isInProgress());
@@ -76,8 +76,8 @@ public class AnalysisPeriodTest extends ApplicationTest {
         period.analyze(BAD_LOG_ENTRY);
         period.end();
 
-        assertEquals(FIRST_GOOD_LOG_ENTRY.getTimestamp(), period.getStartDate());
-        assertEquals(BAD_LOG_ENTRY.getTimestamp(), period.getEndDate());
+        assertEquals(GOOD_LOG_DATE, period.getStartDate());
+        assertEquals(BAD_LOG_DATE, period.getEndDate());
         assertFalse(period.isInProgress());
     }
 
